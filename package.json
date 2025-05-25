@@ -1,14 +1,12 @@
-
 {
-  "name": "live_streaming",
+  "name": "offline-mode-app",
   "version": "1.0.0",
-  "main": "server.js",
+  "description": "Offline audio web app using Node.js and service worker",
+  "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "node app.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": ""
+  "dependencies": {
+    "express": "^4.18.2"
+  }
 }
