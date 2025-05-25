@@ -1,0 +1,42 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Socket.IO Test</title>
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+  </head>
+  <body>
+    <h1>Live Streaming Test</h1>
+    <button onclick="joinRoom()">Join Room</button>
+    <button onclick="sendSignal()">Send Fake Signal</button>
+
+    <script>
+      const socket = io("http://localhost:3000");
+
+      function joinRoom() {
+        const roomId = "book123";
+        socket.emit("room:join", roomId);
+        console.log("Joined room:", roomId);
+      }
+
+      socket.on("room:listener-joined", (id) => {
+        console.log("Listener joined:", id);
+      });
+
+      socket.on("room:streamer-connected", (id) => {
+        console.log("Streamer connected:", id);
+      });
+
+      socket.on("peer:signal", (senderId, data) => {
+        console.log(`Signal from ${senderId}:`, data);
+      });
+
+      function sendSignal() {
+        const fakeTarget = prompt("Enter target socket ID:");
+        const fakeData = { type: "offer", sdp: "test-sdp" };
+        socket.emit("peer:signal", fakeTarget, fakeData);
+        console.log(`Sent fake signal to ${fakeTarget}`);
+      }
+    </script>
+  </body>
+</html>
